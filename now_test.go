@@ -6,6 +6,7 @@ import (
 )
 
 var format = "2006-01-02 15:04:05.999999999"
+var dayslater = 3
 
 func TestBeginningOf(t *testing.T) {
 	n := time.Date(2013, 11, 18, 17, 51, 49, 123456789, time.UTC)
@@ -20,6 +21,22 @@ func TestBeginningOf(t *testing.T) {
 
 	if New(n).BeginningOfDay().Format(format) != "2013-11-18 00:00:00" {
 		t.Errorf("BeginningOfDay")
+	}
+
+	if New(n).BeginningOfNDaysLater(dayslater).Format(format) != "2013-11-21 00:00:00" {
+		t.Errorf("BeginningOfNdaysLater")
+	}
+
+	if New(n).BeginningOfNDaysLater(1).Format(format) != "2013-11-19 00:00:00" {
+		t.Errorf("BeginningOfNdaysLater 1")
+	}
+
+	if New(n).BeginningOfNDaysLater(0).Format(format) != "2013-11-18 00:00:00" {
+		t.Errorf("BeginningOfNdaysLater 0")
+	}
+
+	if New(n).BeginningOfNDaysLater(-2).Format(format) != "2013-11-16 00:00:00" {
+		t.Errorf("BeginningOfNdaysLater 0")
 	}
 
 	if New(n).BeginningOfWeek().Format(format) != "2013-11-17 00:00:00" {

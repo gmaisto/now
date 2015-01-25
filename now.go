@@ -19,6 +19,12 @@ func (now *Now) BeginningOfDay() time.Time {
 	return now.BeginningOfHour().Add(d)
 }
 
+func (now *Now) BeginningOfNDaysLater(days int) time.Time {
+	ndl := New(now.Add(time.Duration(24*days) * time.Hour))
+	d := time.Duration(-ndl.Hour()) * time.Hour
+	return ndl.BeginningOfHour().Add(d)
+}
+
 func (now *Now) BeginningOfWeek() time.Time {
 	t := now.BeginningOfDay()
 	weekday := int(t.Weekday())
